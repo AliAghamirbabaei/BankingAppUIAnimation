@@ -11,6 +11,9 @@
 		302AB7DE279CAF2E00BFF73F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302AB7DD279CAF2E00BFF73F /* ContentView.swift */; };
 		302AB7E0279CAF3000BFF73F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 302AB7DF279CAF3000BFF73F /* Assets.xcassets */; };
 		302AB7E3279CAF3000BFF73F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 302AB7E2279CAF3000BFF73F /* Preview Assets.xcassets */; };
+		302AB7ED279CAFBF00BFF73F /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302AB7EC279CAFBF00BFF73F /* Home.swift */; };
+		302AB7EF279CAFD700BFF73F /* ColorGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302AB7EE279CAFD700BFF73F /* ColorGrid.swift */; };
+		302AB7F3279CB14800BFF73F /* View+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302AB7F2279CB14800BFF73F /* View+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +22,9 @@
 		302AB7DD279CAF2E00BFF73F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		302AB7DF279CAF3000BFF73F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		302AB7E2279CAF3000BFF73F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		302AB7EC279CAFBF00BFF73F /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		302AB7EE279CAFD700BFF73F /* ColorGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorGrid.swift; sourceTree = "<group>"; };
+		302AB7F2279CB14800BFF73F /* View+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,7 +58,11 @@
 			isa = PBXGroup;
 			children = (
 				302AB7DB279CAF2E00BFF73F /* BankingAppUIApp.swift */,
+				302AB7EB279CAFB000BFF73F /* ViewModel */,
+				302AB7EA279CAFAA00BFF73F /* Model */,
+				302AB7E9279CAF5C00BFF73F /* View */,
 				302AB7DD279CAF2E00BFF73F /* ContentView.swift */,
+				302AB7F1279CB0FF00BFF73F /* Extensions */,
 				302AB7DF279CAF3000BFF73F /* Assets.xcassets */,
 				302AB7E1279CAF3000BFF73F /* Preview Content */,
 			);
@@ -65,6 +75,37 @@
 				302AB7E2279CAF3000BFF73F /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		302AB7E9279CAF5C00BFF73F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				302AB7EC279CAFBF00BFF73F /* Home.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		302AB7EA279CAFAA00BFF73F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				302AB7EE279CAFD700BFF73F /* ColorGrid.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		302AB7EB279CAFB000BFF73F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		302AB7F1279CB0FF00BFF73F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				302AB7F2279CB14800BFF73F /* View+Ext.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,7 +179,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				302AB7DE279CAF2E00BFF73F /* ContentView.swift in Sources */,
+				302AB7ED279CAFBF00BFF73F /* Home.swift in Sources */,
+				302AB7F3279CB14800BFF73F /* View+Ext.swift in Sources */,
 				302AB7DC279CAF2E00BFF73F /* BankingAppUIApp.swift in Sources */,
+				302AB7EF279CAFD700BFF73F /* ColorGrid.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
