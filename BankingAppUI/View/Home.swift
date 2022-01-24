@@ -170,7 +170,11 @@ struct Home: View {
                             }
                         }
                     }
-                
+                    .onTapGesture {
+                        withAnimation {
+                            selectedColor = colorGrid.color
+                        }
+                    }
             }else {
                 RoundedRectangle(cornerRadius: 10)
                     .fill(.clear)
@@ -239,7 +243,7 @@ struct Home: View {
     func CreditCard() -> some View {
         ZStack {
             RoundedRectangle(cornerRadius: 15)
-                .fill(Color("Pink"))
+                .fill(selectedColor)
             
             VStack {
                 HStack {
