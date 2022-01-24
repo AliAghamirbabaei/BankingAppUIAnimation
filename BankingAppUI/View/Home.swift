@@ -14,7 +14,7 @@ struct Home: View {
         ColorGrid(hexValue: "#DAA4FF", color: Color("Violet")),
         ColorGrid(hexValue: "#FFD9BA", color: Color("Yellow")),
         ColorGrid(hexValue: "#FE9EC4", color: Color("Pink")),
-        ColorGrid(hexValue: "#FB3272", color: Color ("Orange")),
+        ColorGrid(hexValue: "#FB3272", color: Color("Orange")),
         ColorGrid(hexValue: "#4460EE", color: Color("Blue")),
     ]
     
@@ -37,7 +37,7 @@ struct Home: View {
                         .font(.title2)
                         .foregroundColor(.white)
                 }
-                .hTrailing()
+                .hLeading()
                 
                 Button {
                     
@@ -83,9 +83,7 @@ struct Home: View {
             }
             .padding()
             
-            GeometryReader {proxy in
-                let size = proxy.size
-                
+            GeometryReader { proxy in
                 ZStack {
                     Color.black
                         .clipShape(CustomCorner(corners: [.topLeft, .topRight], radius: 40))
