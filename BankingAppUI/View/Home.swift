@@ -18,6 +18,10 @@ struct Home: View {
         ColorGrid(hexValue: "#4460EE", color: Color("Blue")),
     ]
     
+    // MARK: Animation Properties
+    /// Instead of making each boolean for separate animation making it as array to avoid multiple lines of code.
+    @State var animations: [Bool] = Array(repeating: false, count: 10)
+    
     var body: some View {
         VStack {
             HStack {
@@ -40,9 +44,19 @@ struct Home: View {
                         .clipShape(Circle())
                 }
             }
-            .padding()
+            .padding([.horizontal, .top])
+            .padding(.bottom, 5)
             
-            CreditCard()
+            // MARK: Using Geometry Reader for Setting Offset
+            GeometryReader {proxy in
+                let maxY = proxy.frame(in: .global).maxX
+                
+                CreditCard()
+                // MARK: 3D Rotation
+                    .rotation3DEffect(.init(degrees: animations[0] ? 0 : -270), axis: (x: 1, y: 0, z: 0), anchor: .center)
+                    .offset(y: animations[0] ? 0 : -maxY)
+            }
+            .frame(height: 250)
             
             HStack {
                 Text("Choose a color")
@@ -63,12 +77,23 @@ struct Home: View {
             .padding()
             
             Color.black
+                .clipShape(CustomCorner(corners: [.topLeft, .topRight], radius: 40))
+                .padding(.top)
         }
         .vTop()
         .hCenter()
         .ignoresSafeArea(.container, edges: .bottom)
         .background(Color("Background"))
         .preferredColorScheme(.dark)
+        .onAppear(perform: animateScreen)
+    }
+    
+    func animateScreen() {
+        // MARK: Animating Screen
+        /// First Animation of Credit Card
+        withAnimation(.interactiveSpring(response: 1.3, dampingFraction: 0.7, blendDuration: 0.7)) {
+            animations[0] = true
+        }
     }
     
     // MARK: Animated Credit Card
@@ -119,7 +144,6 @@ struct Home: View {
                 .offset(x: 130, y: -120)
         }
         .clipped()
-        .frame(height: 250)
         .padding()
     }
 }
