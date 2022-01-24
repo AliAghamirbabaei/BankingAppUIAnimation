@@ -19,9 +19,14 @@ struct Home: View {
     ]
     
     // MARK: Animation Properties
-    /// Instead of making each boolean for separate animation making it as array to avoid multiple lines of code.
+    // Instead of making each boolean for separate animation making it as array to avoid multiple lines of code.
     @State var animations: [Bool] = Array(repeating: false, count: 10)
     
+    // MatchedGeometry Namespace
+    @Namespace var animation
+    
+    // Card Color
+    @State var selectedColor: Color = Color("Pink")
     var body: some View {
         VStack {
             HStack {
@@ -63,6 +68,7 @@ struct Home: View {
                     .font(.title3)
                     .fontWeight(.semibold)
                     .hLeading()
+                    .offset(x: animations[1] ? 0 : -200)
                 
                 Button {
                     
@@ -73,12 +79,62 @@ struct Home: View {
                         .foregroundColor(Color("Pink"))
                         .underline()
                 }
+                .offset(x: animations[1] ? 0 : 200)
             }
             .padding()
             
-            Color.black
-                .clipShape(CustomCorner(corners: [.topLeft, .topRight], radius: 40))
-                .padding(.top)
+            GeometryReader {proxy in
+                let size = proxy.size
+                
+                ZStack {
+                    Color.black
+                        .clipShape(CustomCorner(corners: [.topLeft, .topRight], radius: 40))
+                        .frame(height: animations[2] ? nil : 0)
+                        .vBottom()
+                    
+                    ZStack {
+                        // MARK: Initial Grid View
+                        ForEach(colors){ colorGrid in
+                            // Hiding the source Once
+                            if !colorGrid.removeFromView {
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(colorGrid.color)
+                                    .frame(width: 150, height: animations[3] ? 60 : 150)
+                                    .matchedGeometryEffect(id: colorGrid.id, in: animation)
+                                // MARK: Rotating Cards
+                                    .rotationEffect(.init(degrees: colorGrid.rotateCards ? 180 : 0))
+                            }
+                        }
+                    }
+                    // MARK: Applying Opacity with Scale Animation
+                    // To Avoid this Creating a BG overlay and hiding it
+                    // So that it will look like the whole stack is Applying Opacity Animation
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color("Background"))
+                            .frame(width: 150, height: animations[3] ? 60 : 150)
+                            .opacity(animations[3] ? 0 : 1)
+                    )
+                    // Scale Effect
+                    .scaleEffect(animations[3] ? 1 : 2.3)
+                }
+                .hCenter()
+                .vCenter()
+                
+                // MARK: ScrollView with Color Grids
+                ScrollView(.vertical, showsIndicators: false) {
+                    let columns = Array(repeating: GridItem(.flexible(), spacing: 15), count: 2)
+                    
+                    LazyVGrid(columns: columns, spacing: 15) {
+                        ForEach(colors){ colorGrid in
+                            GridCardView(colorGrid: colorGrid)
+                        }
+                    }
+                    .padding(.top, 40)
+                }
+                .cornerRadius(40)
+            }
+            .padding(.top)
         }
         .vTop()
         .hCenter()
@@ -88,11 +144,93 @@ struct Home: View {
         .onAppear(perform: animateScreen)
     }
     
+    // MARK: Grid Card View
+    @ViewBuilder
+    func GridCardView(colorGrid: ColorGrid) -> some View {
+        VStack {
+            if colorGrid.addToGrid {
+                // Displaying with Matched Geometry Effect
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(colorGrid.color)
+                    .frame(width: 150, height: 60)
+                    .matchedGeometryEffect(id: colorGrid.id, in: animation)
+                // When Animated Grid Card is Displayed Displaying the Color Text
+                    .onAppear {
+                        if let index = colors.firstIndex(where: {color in
+                            return color.id == colorGrid.id
+                        }){
+                            withAnimation {
+                                colors[index].showText = true
+                            }
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.11) {
+                                withAnimation {
+                                    colors[index].removeFromView = true
+                                }
+                            }
+                        }
+                    }
+                
+            }else {
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(.clear)
+                    .frame(width: 150, height: 60)
+                
+            }
+            Text(colorGrid.hexValue)
+                .font(.caption)
+                .fontWeight(.light)
+                .foregroundColor(.white)
+                .hLeading()
+                .padding([.horizontal, .top])
+                .opacity(colorGrid.showText ? 1 : 0)
+        }
+    }
+    
     func animateScreen() {
         // MARK: Animating Screen
-        /// First Animation of Credit Card
-        withAnimation(.interactiveSpring(response: 1.3, dampingFraction: 0.7, blendDuration: 0.7)) {
+        // First Animation of Credit Card
+        // Delaying First Animation after the second Animation
+        withAnimation(.interactiveSpring(response: 1.3, dampingFraction: 0.7, blendDuration: 0.7).delay(0.3)) {
             animations[0] = true
+        }
+        
+        // Second Animation the HStack with View All Button
+        withAnimation(.easeInOut(duration: 0.7)) {
+            animations[1] = true
+        }
+        
+        // Third Animation Making The Bottom to Slide up Eventually
+        withAnimation(.interactiveSpring(response: 1.3, dampingFraction: 0.7, blendDuration: 0.7).delay(0.3)) {
+            animations[2] = true
+        }
+        
+        // Third Animation Applying Opacity with scale animations for Stack Grid Colors
+        withAnimation(.easeInOut(duration: 0.8)) {
+            animations[3] = true
+        }
+        
+        // Final Grid Forming Animation
+        for index in colors.indices {
+            // Animating after the opacity animation has Finished  its job
+            // Rotating One card another with a time daly of 0.1 sec
+            let delay: Double = (0.9 + (Double(index) * 0.1))
+            
+            // Last card is rotating first since we're putting in ZStack
+            // To Avoid this recalculate index from back
+            let backIndex = ((colors.count - 1) - index)
+            withAnimation(.easeInOut.delay(delay)) {
+                colors[backIndex].rotateCards = true
+            }
+            
+            // After rotation adding it to grid view one after another
+            // Since .delay() will not work on if...else
+            // So using DispatchQueue delay
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                withAnimation {
+                    colors[backIndex].addToGrid = true
+                }
+            }
         }
     }
     
