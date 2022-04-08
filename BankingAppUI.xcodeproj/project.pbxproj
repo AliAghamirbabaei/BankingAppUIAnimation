@@ -15,6 +15,7 @@
 		302AB7EF279CAFD700BFF73F /* ColorGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302AB7EE279CAFD700BFF73F /* ColorGrid.swift */; };
 		302AB7F3279CB14800BFF73F /* View+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302AB7F2279CB14800BFF73F /* View+Ext.swift */; };
 		302FD0CB279F3BF500FBD12E /* CustomCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302FD0CA279F3BF500FBD12E /* CustomCorner.swift */; };
+		30FFE0A927FFB9FA004A8263 /* MotionObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FFE0A827FFB9FA004A8263 /* MotionObserver.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		302AB7EE279CAFD700BFF73F /* ColorGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorGrid.swift; sourceTree = "<group>"; };
 		302AB7F2279CB14800BFF73F /* View+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Ext.swift"; sourceTree = "<group>"; };
 		302FD0CA279F3BF500FBD12E /* CustomCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCorner.swift; sourceTree = "<group>"; };
+		30FFE0A827FFB9FA004A8263 /* MotionObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotionObserver.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 		302AB7EB279CAFB000BFF73F /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				30FFE0A827FFB9FA004A8263 /* MotionObserver.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -184,6 +187,7 @@
 				302AB7DE279CAF2E00BFF73F /* ContentView.swift in Sources */,
 				302AB7ED279CAFBF00BFF73F /* Home.swift in Sources */,
 				302AB7F3279CB14800BFF73F /* View+Ext.swift in Sources */,
+				30FFE0A927FFB9FA004A8263 /* MotionObserver.swift in Sources */,
 				302FD0CB279F3BF500FBD12E /* CustomCorner.swift in Sources */,
 				302AB7DC279CAF2E00BFF73F /* BankingAppUIApp.swift in Sources */,
 				302AB7EF279CAFD700BFF73F /* ColorGrid.swift in Sources */,

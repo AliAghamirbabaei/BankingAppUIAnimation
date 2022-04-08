@@ -18,6 +18,9 @@ struct Home: View {
         ColorGrid(hexValue: "#4460EE", color: Color("Blue")),
     ]
     
+    // motion detector object
+    @StateObject var motionObserver = MotionObserver()
+    
     // MARK: Animation Properties
     // Instead of making each boolean for separate animation making it as array to avoid multiple lines of code.
     @State var animations: [Bool] = Array(repeating: false, count: 10)
@@ -60,6 +63,7 @@ struct Home: View {
                 // MARK: 3D Rotation
                     .rotation3DEffect(.init(degrees: animations[0] ? 0 : -270), axis: (x: 1, y: 0, z: 0), anchor: .center)
                     .offset(y: animations[0] ? 0 : -maxY)
+                    .offset(motionObserver.movingOffset)
             }
             .frame(height: 250)
             
@@ -234,6 +238,8 @@ struct Home: View {
                 }
             }
         }
+        
+        motionObserver.fetchMotionData(duration: 7)
     }
     
     // MARK: Animated Credit Card
